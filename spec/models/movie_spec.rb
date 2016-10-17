@@ -1,3 +1,6 @@
+require 'spec_helper'
+require 'rails_helper'
+require 'themoviedb'
 
 describe Movie do
   describe 'searching Tmdb by keyword' do
@@ -7,11 +10,15 @@ describe Movie do
         Movie.find_in_tmdb('Inception')
       end
     end
+    
     context 'with invalid key' do
       it 'should raise InvalidKeyError if key is missing or invalid' do
         allow(Tmdb::Movie).to receive(:find).and_raise(Tmdb::InvalidApiKeyError)
         expect {Movie.find_in_tmdb('Inception') }.to raise_error(Movie::InvalidKeyError)
       end
     end
+  end
+  
+  describe 'creating tmdb by keyword' do
   end
 end
